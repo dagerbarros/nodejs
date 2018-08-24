@@ -4,9 +4,7 @@
 const Products = require('../models/product');
 
 function getProduct(req, res){
-/*capturo el valor por parametros*/
 	let productid = req.params.productID
-	/*Se consulta con el metodo de findById de mongoose*/
 	Products.findById(productid ,(err, result) => {
 		if(err) return res.status(500).send({messaje : `Error al conectar a la db ${err}`})
 		if(!result) return res.status(404).send({messaje : `Producto no encontrado`})
@@ -45,10 +43,7 @@ function postProduct(){
 
 function putProduct(req, res){
 	let productid = req.params.productID
-	/*variable donde captura todos lo elementos del body o cuerpo*/
 	let update = req.body
-	/*El id del producto que se va a modificar y sus respectivos campos*/
-	/*{new : true} esto es para retornar el registro actualizado*/
 	Products.findByIdAndUpdate(productid, update, {new : true}, (err, result) => {
 		if(err) return res.status(500).send({messaje : `Error al actualizar el producto ${err}`})
 	    res.status(200).send({product : result})

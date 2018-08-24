@@ -6,20 +6,14 @@ const bcrypt = require('bcrypt-nodejs')
 const crypto = require('crypto');
 
 const UserSchema = new Schema({
-	/*unique(true: para que no se repita el email)*/
-	/*lowercase(true: todo de guarde en mimusculas)*/
 	email : {type : String, unique : true, lowercase : true},
 	name : String,
 	avatar : String,
-	/*select : false es un metodo de seguridad para que al momento de hacer un get este no devuelva el passwd al cliente*/
 	password : {type : String},
 	fechRegis : {type : Date, default: Date.now()},
-	/*llevar un control de la ultimna vez que inicio session*/
 	lastDate : Date
 });
 
-/*function preventiva que se ejecuta antes del save(guardado): UserSchema.pre('save', (next)*/
-/*se coloca function en vez de arrow por la funcionalidad del this global*/
 UserSchema.pre('save', function (next) {
 	let user = this
 	if(!user.isModified('password')) return next()

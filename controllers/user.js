@@ -26,15 +26,6 @@ function signIn(req, res){
 			//console.log(user[0]['password'])
 			const isMatch = bcrypt.compareSync(passwd,user[0]['password']);
 			if(!isMatch) return res.status(404).send({message: 'error al verificar password'})
-
-	    		/*bcrypt.compare(passwd, user[0]['password'], (err, res)=>{
-	    			
-	  	  			if(err) return res.status(500).send({message: 'error al comprobar credenciales'})
-	  	  				//console.log(res)
-	    		  const result = res	    			
-	    	})*/
-	    	//console.log(result)
-	    	//if(!result) return res.status(403).send({message: 'Datos incorrectos'})
 	    	req.user = user
 	    	res.status(200).send({message: 'Login successful',token: service.createToken(user)})
 	})
